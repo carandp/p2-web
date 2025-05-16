@@ -25,7 +25,97 @@
 ## Steps to replicate backend:
 1. npm i -g @nestjs/cli
 2. nest new <project_name>
-3. 
+3. Add docker-compose.yaml and env.template
+4. Re create env.template as .env
+5. Run 
+```
+docker-compose up -d
+```
+6. Add /postgress to .gitignore file
+7. Add dependencies 
+```
+npm install --save class-transformer class-validator pg postgres typeorm @nestjs/config @nestjs/mapped-types @nestjs/typeorm
+```
+8. Enable API versioning in main.ts
+```ts
+app.enableCors({
+    origin: 'http://localhost:3000', // Cambia esto a la URL de tu frontend
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+  
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'api/v',
+    defaultVersion: '1',
+  });
+
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(3001);
+```
+9. Enable connection to postgres db via typeorm in app.module.ts
+```ts
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import * as path from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: path.resolve(__dirname, '../.env'),
+    }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST ?? 'localhost',
+      port: +(process.env.DB_PORT ?? 5432),
+      username: process.env.DB_USERNAME ?? 'postgres',
+      password: process.env.DB_PASSWORD ?? 'postgres',
+      database: process.env.DB_NAME ?? 'vocablosDB',
+      autoLoadEntities: true,
+      synchronize: true,
+      dropSchema: true,
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+```
+10. Add base.entity.ts in src/common
+```ts
+import { PrimaryGeneratedColumn } from 'typeorm';
+
+export abstract class Base {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+}
+```
+11. To create modules with: dtos, entity, service and controller (select REST API, then generate CRUD entry points)
+```
+nest g res <name>
+``` 
+  1. make name.entity.ts extend Base
+  2. @Entity() at the start
+  3. fill entity with @Column() or @JoinColumn()
+  4. fill create-name.dto.ts with restrictions
+  5. add in name.module.ts 
+  ```ts 
+  imports: [TypeOrmModule.forFeature([Name])],
+  ```
+  6. edit name.controller.ts (+id -> id) and name.service.ts (id: number -> id: string)
+  7. add repository connection
+  ```ts
+  constructor(
+    @InjectRepository(Name)
+    private readonly nameRepository: Repository<Name>,
+  ) {}
+  ```
+  8. add entity restrictions in name.service.ts
+  9. use async for functions
+12. To connect to Jetbrains datagrip use .env credentials
 
 
 ## Description
