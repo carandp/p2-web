@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import * as path from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsuariosModule } from './usuarios/usuarios.module';
-import { BonosModule } from './bonos/bonos.module';
-import { ClasesModule } from './clases/clases.module';
+import { EstudiantesModule } from './estudiantes/estudiantes.module';
+import { ActividadesModule } from './actividades/actividades.module';
+import { ReseniasModule } from './resenias/resenias.module';
 
 @Module({
   imports: [
@@ -24,11 +24,11 @@ import { ClasesModule } from './clases/clases.module';
       synchronize: true,
       dropSchema: true,
     }),
-    UsuariosModule,
-    BonosModule,
-    ClasesModule,
-  ],
+    EstudiantesModule,
+    ActividadesModule,
+    ReseniasModule,
+  ], 
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {} 
