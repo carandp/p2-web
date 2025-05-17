@@ -13,7 +13,7 @@ export class ActividadesService {
   ) {}
 
   async create(createActividadeDto: CreateActividadeDto) {
-    if (!/^[a-zA-Z0-9. ]*$/.test(createActividadeDto.titulo)) {
+    if (!/^[a-zA-Z0-9. áéíóúÁÉÍÓÚñÑ]*$/.test(createActividadeDto.titulo)) {
       throw new BadRequestException('Titulo cant have special characters');
     }
     if (createActividadeDto.titulo.length < 15) {
@@ -27,7 +27,7 @@ export class ActividadesService {
   }
 
   async updateEstado(id: number, estado: number) {
-    const actividade = await this.actividadeRepository.findOne({ where: { id } });
+    const actividade = await this.actividadeRepository.findOne({ where: { id }, relations: ['estudiantes'] });
     if (!actividade) {
       throw new NotFoundException(`Actividade with id ${id} not found`);
     }

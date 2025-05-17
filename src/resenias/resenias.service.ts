@@ -28,11 +28,11 @@ export class ReseniasService {
     if (actividade.estado !== 2) {
       throw new BadRequestException('Actividade is not in the correct estado');
     }
-    const estudiante = await this.estudianteRepository.findOne({ where: { id: createReseniaDto.estudiante } });
+    const estudiante = await this.estudianteRepository.findOne({ where: { id: createReseniaDto.estudiante }, relations: ['actividades'] });
     if (!estudiante) {
       throw new NotFoundException('Estudiante not found');
     }
-    if (!(estudiante.actividades.some((actividad) => actividad.id === createReseniaDto.actividade))) {
+    if (!(estudiante.actividades.some((actividad) => actividad.id === actividade.id))) {
       throw new BadRequestException('Estudiante is not enrolled in the actividad');
     }
     const resenia = this.reseniaRepository.create({

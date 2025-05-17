@@ -36,12 +36,12 @@ export class EstudiantesService {
   }
 
   async inscribirseActividad(idEstudiante: number, idActividad: number) {
-    const estudiante = await this.estudianteRepository.findOne({ where: { id: idEstudiante } });
+    const estudiante = await this.estudianteRepository.findOne({ where: { id: idEstudiante }, relations: ['actividades'] });
     if (!estudiante) {
       throw new NotFoundException(`Estudiante with id ${idEstudiante} not found`);
     }
 
-    const actividad = await this.actividadeRepository.findOne({ where: { id: idActividad } });
+    const actividad = await this.actividadeRepository.findOne({ where: { id: idActividad }, relations: ['estudiantes']});
     if (!actividad) {
       throw new NotFoundException(`Actividad with id ${idActividad} not found`);
     }
@@ -59,17 +59,8 @@ export class EstudiantesService {
     }
 
     estudiante.actividades.push(actividad);
-    await this.estudianteRepository.update(estudiante.id, estudiante);
+    await this.estudianteRepository.save(estudiante);
 
     return estudiante;
-  }
- 
-  async update(id: number, updateEstudianteDto: UpdateEstudianteDto) {
-    const estudiante = await this.estudianteRepository.findOne({ where: { id } });
-    if (!estudiante) {
-      throw new NotFoundException(`Estudiante with id ${id} not found`);
-    }
-    Object.assign(estudiante, updateEstudianteDto);
-    return await this.estudianteRepository.save(estudiante);
   }
 }

@@ -17,7 +17,7 @@ export class ActividadesController {
     return this.actividadesService.updateEstado(+id, +estado);
   }
 
-  @Get(':fecha')
+  @Get('/by_fecha/:fecha')
   findOne(@Param('fecha') fecha: string) {
     return this.actividadesService.findAllActividadesByDate(fecha);
   }
