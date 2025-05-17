@@ -1,6 +1,6 @@
 import { Entity } from "typeorm/decorator/entity/Entity";
 import { Base } from "../../common/base.entity";
-import { Column, JoinColumn, ManyToMany, OneToMany } from "typeorm";
+import { Column, ManyToMany, OneToMany } from "typeorm";
 import { Actividade } from "../../actividades/entities/actividade.entity";
 import { Resenia } from "../../resenias/entities/resenia.entity";
 

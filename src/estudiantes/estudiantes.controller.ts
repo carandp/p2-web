@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { EstudiantesService } from './estudiantes.service';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
-import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
 
 @Controller('estudiantes')
 export class EstudiantesController {
@@ -9,26 +8,16 @@ export class EstudiantesController {
 
   @Post()
   create(@Body() createEstudianteDto: CreateEstudianteDto) {
-    return this.estudiantesService.create(createEstudianteDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.estudiantesService.findAll();
+    return this.estudiantesService.crearEstudiante(createEstudianteDto);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.estudiantesService.findOne(+id);
+    return this.estudiantesService.findEstudianteById(+id);
   }
 
-  @Patch(':idEstudiante:idActividad')
-  update(@Param('idEstudiante') idEstudiante: string, @Param('idActividad') idActividad: string, @Body() updateEstudianteDto: UpdateEstudianteDto) {
-    return this.estudiantesService.inscribirseActividad(+idEstudiante, +idActividad, updateEstudianteDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estudiantesService.remove(+id);
+  @Patch(':idEstudiante/inscribir/:idActividad')
+  update(@Param('idEstudiante') idEstudiante: string, @Param('idActividad') idActividad: string) {
+    return this.estudiantesService.inscribirseActividad(+idEstudiante, +idActividad);
   }
 }

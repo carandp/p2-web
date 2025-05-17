@@ -12,23 +12,13 @@ export class ActividadesController {
     return this.actividadesService.create(createActividadeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.actividadesService.findAll();
+  @Patch(':id/cambiar_estado/:estado')
+  update(@Param('id') id: string, @Param('estado') estado: string) {
+    return this.actividadesService.updateEstado(+id, +estado);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.actividadesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateActividadeDto: UpdateActividadeDto) {
-    return this.actividadesService.update(+id, updateActividadeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.actividadesService.remove(+id);
+  @Get(':fecha')
+  findOne(@Param('fecha') fecha: string) {
+    return this.actividadesService.findAllActividadesByDate(fecha);
   }
 }

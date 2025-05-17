@@ -21,12 +21,27 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+# Steps to run backend:
 
-## Steps to replicate backend:
+1. Run
+```bash 
+npm i
+```
+2. Create .env using as a base env.template
+3. Run 
+```bash
+docker-compose up -d
+```
+4. Run
+```bash
+npm start run:dev
+```
+
+# Steps to replicate backend:
 1. npm i -g @nestjs/cli
 2. nest new <project_name>
 3. Add docker-compose.yaml and env.template
-4. Re create env.template as .env
+4. Create .env using as a base env.template
 5. Run 
 ```
 docker-compose up -d
@@ -98,7 +113,10 @@ export abstract class Base {
 nest g res <name>
 ``` 
   1. make name.entity.ts extend Base
-  2. @Entity() at the start
+  2. Tag at the start
+  ```ts
+  @Entity()
+  ```
   3. fill entity with @Column() or @JoinColumn()
   4. fill create-name.dto.ts with restrictions
   5. add in name.module.ts 
@@ -115,6 +133,18 @@ nest g res <name>
   ```
   8. add entity restrictions in name.service.ts
   9. use async for functions
+  10. use notation for paths:
+  ```ts
+  // In entity
+  import { Name } from '../../name/entities/name.entity'
+  // In controller / service
+  import { Name } from '../name/entities/name.entity'
+  ```
+  11. If service needs from another repository add in name.module.ts:
+  ```ts
+  TypeOrmModule.forFeature([Name, ExtraRepositoryEntity, ...])
+  ```
+
 12. To connect to Jetbrains datagrip use .env credentials
 
 
