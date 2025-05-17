@@ -2,16 +2,16 @@
 
 1. Run
 ```bash 
-$ npm i
+npm i
 ```
 2. Create .env using as a base env.template
 3. Run 
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
 4. Run
 ```bash
-$ npm start run:dev
+npm start run:dev
 ```
 
 # Steps to replicate project:
@@ -21,12 +21,12 @@ $ npm start run:dev
 4. Create .env using as a base env.template
 5. Run 
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
 6. Add /postgress to .gitignore file
 7. Add dependencies 
 ```bash
-$ npm install --save class-transformer class-validator pg postgres typeorm @nestjs/config @nestjs/mapped-types @nestjs/typeorm
+npm install --save class-transformer class-validator pg postgres typeorm @nestjs/config @nestjs/mapped-types @nestjs/typeorm
 ```
 8. Enable API versioning in main.ts
 ```ts
@@ -130,8 +130,7 @@ TypeOrmModule.forFeature([Name, ExtraRepositoryEntity, ...])
 # Run project tests
 
 ```bash
-# unit tests
-$ npm run test
+npm run test
 ```
 
 # License
