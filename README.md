@@ -1,15 +1,15 @@
 # Project setup, compile and run:
 
-1. Run
+1. Install dependencies
 ```bash 
 npm i
 ```
 2. Create .env using as a base env.template
-3. Run 
+3. Setup postgres database using docker 
 ```bash
 docker-compose up -d
 ```
-4. Run
+4. Run project
 ```bash
 npm start run:dev
 ```
@@ -23,7 +23,7 @@ npm start run:dev
 ```bash
 docker-compose up -d
 ```
-6. Add /postgress to .gitignore file
+6. Add /postgres to .gitignore file
 7. Add dependencies 
 ```bash
 npm install --save class-transformer class-validator pg postgres typeorm @nestjs/config @nestjs/mapped-types @nestjs/typeorm
