@@ -17,6 +17,7 @@ npm start run:dev
 ```bash
 npm run test
 ```
+6. Postman: Tests are divided into valid and invalid. Documentation is in overview of the collection.
 
 # Steps to replicate project:
 1. npm i -g @nestjs/cli
