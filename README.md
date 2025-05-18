@@ -13,6 +13,10 @@ docker-compose up -d
 ```bash
 npm start run:dev
 ```
+5. Run tests
+```bash
+npm run test
+```
 
 # Steps to replicate project:
 1. npm i -g @nestjs/cli

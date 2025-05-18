@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateActividadeDto } from './dto/create-actividade.dto';
-import { UpdateActividadeDto } from './dto/update-actividade.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Actividade } from './entities/actividade.entity';
 import { Repository } from 'typeorm';
@@ -46,7 +45,7 @@ export class ActividadesService {
         actividade.estado = estado;
         return await this.actividadeRepository.save(actividade);
       } else {
-        throw new BadRequestException(`Actividade with id ${id} is'nt full`);
+        throw new BadRequestException(`Actividade with id ${id} is not full`);
       }
     } else {
       throw new BadRequestException(`Invalid estado value`);

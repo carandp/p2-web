@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReseniaDto } from './dto/create-resenia.dto';
-import { UpdateReseniaDto } from './dto/update-resenia.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Resenia } from './entities/resenia.entity';
 import { Not, Repository } from 'typeorm';
